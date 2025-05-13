@@ -1,0 +1,11 @@
+# Task ID: 17
+# Title: Implement Dark/Light Mode Toggle
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Implement support for switching between light and dark UI themes.
+# Details:
+Leverage shadcn/ui's built-in dark mode support (usually via Tailwind CSS classes and a context provider). Add a toggle button (e.g., using shadcn/ui `Button` and an icon) to switch the theme. Store the user's preference (e.g., in local storage).
+
+# Test Strategy:
+Click the theme toggle button. Verify that the UI colors switch between light and dark themes. Refresh the page and verify that the selected theme persists (if implemented).

@@ -1,0 +1,11 @@
+# Task ID: 9
+# Title: Implement Brush Size Slider UI
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Create a UI component for adjusting brush size, likely using a slider.
+# Details:
+Use the shadcn/ui `Slider` component. Connect it to the state store to read and update the `brushSize` state. Configure the slider with appropriate min/max values and step.
+
+# Test Strategy:
+Move the slider handle. Verify that the brush size value is correctly updated in the state store and displayed in the UI (if applicable).

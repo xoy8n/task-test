@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Setup Project and Core Dependencies
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Set up the basic project structure using Next.js, integrate Tailwind CSS for styling, add shadcn/ui components, and include Fabric.js and Zustand/Jotai as dependencies.
+# Details:
+Initialize a new Next.js project. Configure Tailwind CSS. Install shadcn/ui CLI and initialize it, selecting appropriate base styles and components. Install fabric.js and zustand (or jotai). Set up basic directory structure for components, state, and utilities.
+
+# Test Strategy:
+Verify that the development server runs without errors, Tailwind CSS is applied, and core libraries (shadcn/ui, fabric.js, zustand/jotai) are correctly installed and importable.

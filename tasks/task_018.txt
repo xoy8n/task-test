@@ -1,0 +1,11 @@
+# Task ID: 18
+# Title: Add Basic Shape Drawing Tools
+# Status: pending
+# Dependencies: 2, 4, 12
+# Priority: medium
+# Description: Add basic shape drawing tools like Rectangle and Circle using Fabric.js.
+# Details:
+Add buttons for Rectangle and Circle tools (depends on Task 5). When a shape tool is selected, update the state store. Implement mouse down/move/up logic on the canvas to draw the shape dynamically as the user drags. Create Fabric.js `fabric.Rect` and `fabric.Circle` objects. Add the created shape to the canvas and record the action in the history stack.
+
+# Test Strategy:
+Select the Rectangle tool. Click and drag on the canvas. Verify that a rectangle is drawn. Select the Circle tool. Click and drag. Verify a circle is drawn. Use undo/redo to verify shape creation is recorded in history.

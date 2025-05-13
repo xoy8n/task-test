@@ -1,0 +1,11 @@
+# Task ID: 19
+# Title: Add Text Insertion Tool
+# Status: pending
+# Dependencies: 2, 4, 12
+# Priority: medium
+# Description: Add a tool to insert and edit text on the canvas using Fabric.js text objects.
+# Details:
+Add a button for the Text tool (depends on Task 5). When selected, update the state store. On canvas click, create a Fabric.js `fabric.IText` object at the click location. Add it to the canvas and enter editing mode. Allow basic text editing. Record text creation/modification in the history stack.
+
+# Test Strategy:
+Select the Text tool. Click on the canvas. Verify that a text box appears and is editable. Type some text. Click outside to exit editing. Verify the text object is rendered. Use undo/redo to verify text creation is recorded.

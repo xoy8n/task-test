@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: Implement Basic Drawing Tool: Pen
+# Status: pending
+# Dependencies: 2, 4
+# Priority: high
+# Description: Implement the basic 'Pen' drawing tool functionality using Fabric.js free drawing mode.
+# Details:
+Add a button for the Pen tool in the UI (depends on Task 5). When selected, update the state store (`selectedTool`). In the `CanvasArea` component, observe the `selectedTool` state. If 'pen' is selected, enable Fabric.js free drawing mode (`canvas.isDrawingMode = true`) and set the drawing brush type (e.g., `canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)`).
+
+# Test Strategy:
+Select the Pen tool. Click and drag on the canvas. Verify that a freeform line is drawn. Change the selected tool and verify drawing stops.

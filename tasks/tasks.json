@@ -1,0 +1,297 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Project and Core Dependencies",
+      "description": "Set up the basic project structure using Next.js, integrate Tailwind CSS for styling, add shadcn/ui components, and include Fabric.js and Zustand/Jotai as dependencies.",
+      "details": "Initialize a new Next.js project. Configure Tailwind CSS. Install shadcn/ui CLI and initialize it, selecting appropriate base styles and components. Install fabric.js and zustand (or jotai). Set up basic directory structure for components, state, and utilities.",
+      "testStrategy": "Verify that the development server runs without errors, Tailwind CSS is applied, and core libraries (shadcn/ui, fabric.js, zustand/jotai) are correctly installed and importable.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Implement Core Canvas Component",
+      "description": "Implement the main drawing area using HTML5 Canvas and initialize Fabric.js on it. This component will be the central part of the application.",
+      "details": "Create a React component (e.g., `CanvasArea.tsx`) that renders a `<canvas>` element. Use `useEffect` to initialize a Fabric.js `Canvas` instance when the component mounts. Handle canvas cleanup on unmount. Expose the Fabric.js canvas instance or relevant methods for external interaction.",
+      "testStrategy": "Render the CanvasArea component. Verify that a canvas element is present in the DOM and that Fabric.js is successfully initialized on it (e.g., check for Fabric.js specific properties on the canvas object in the browser console).",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "Implement State Management Store",
+      "description": "Set up a global state management store using Zustand or Jotai to manage application state like selected tool, color, brush size, canvas state, and history.",
+      "details": "Create a Zustand store (e.g., `useCanvasStore.ts`) with initial state for `selectedTool`, `color`, `brushSize`, `canvasState`, `history`, etc. Include actions to update these states. Decide whether to store Fabric.js objects directly or their serializable representations.",
+      "testStrategy": "Create simple components that read and update values from the store. Verify that state changes are reflected correctly across components subscribed to the store.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "Integrate Canvas with State Management",
+      "description": "Connect the Fabric.js canvas instance and its events to the state management store to synchronize canvas operations and application state.",
+      "details": "In the `CanvasArea` component, get the state management store instance. When the Fabric.js canvas is initialized, store its reference or relevant state in the store. Listen to Fabric.js events (e.g., `object:added`, `object:modified`, `path:created`) and dispatch actions to update the application state or history in the store.",
+      "testStrategy": "Draw something on the canvas. Verify that the state store is updated with information about the added object or path. Programmatically change state in the store (e.g., background color) and verify it reflects on the canvas.",
+      "priority": "high",
+      "dependencies": [
+        2,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 5,
+      "title": "Implement Base Layout and UI Framework",
+      "description": "Create the main application layout including a header/sidebar for tools and settings, and the main canvas area, using shadcn/ui components.",
+      "details": "Design a responsive layout using Tailwind CSS and shadcn/ui components like `Layout`, `Sidebar`, `Button`, `Sheet` (for mobile). Place the `CanvasArea` component within the main content area. Create placeholder sections for toolbars and settings panels.",
+      "testStrategy": "Render the main application page. Verify that the layout structure is correct, shadcn/ui components are styled properly, and the layout is responsive when resizing the browser window.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 6,
+      "title": "Implement Basic Drawing Tool: Pen",
+      "description": "Implement the basic 'Pen' drawing tool functionality using Fabric.js free drawing mode.",
+      "details": "Add a button for the Pen tool in the UI (depends on Task 5). When selected, update the state store (`selectedTool`). In the `CanvasArea` component, observe the `selectedTool` state. If 'pen' is selected, enable Fabric.js free drawing mode (`canvas.isDrawingMode = true`) and set the drawing brush type (e.g., `canvas.freeDrawingBrush = new fabric.PencilBrush(canvas)`).",
+      "testStrategy": "Select the Pen tool. Click and drag on the canvas. Verify that a freeform line is drawn. Change the selected tool and verify drawing stops.",
+      "priority": "high",
+      "dependencies": [
+        2,
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 7,
+      "title": "Implement Basic Drawing Tool: Eraser",
+      "description": "Implement the basic 'Eraser' drawing tool functionality.",
+      "details": "Add a button for the Eraser tool (depends on Task 5). When selected, update the state store. Implement eraser logic. This might involve using a special 'erasing' brush that draws with transparent color or using Fabric.js's `globalCompositeOperation = 'destination-out'` while drawing on a temporary canvas, then merging.",
+      "testStrategy": "Draw some shapes/lines with the pen. Select the Eraser tool. Click and drag over existing drawings. Verify that the parts under the eraser path are removed or become transparent.",
+      "priority": "high",
+      "dependencies": [
+        2,
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 8,
+      "title": "Implement Color Picker UI",
+      "description": "Create a UI component for selecting colors, likely using a color picker library or a custom implementation with shadcn/ui.",
+      "details": "Use a shadcn/ui component like `Popover` or `Dialog` to contain a color selection interface. This could be a simple palette or an advanced color picker component. Connect it to the state store to read and update the `color` state.",
+      "testStrategy": "Open the color picker. Select different colors. Verify that the selected color is correctly updated in the state store and displayed in the UI.",
+      "priority": "medium",
+      "dependencies": [
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 9,
+      "title": "Implement Brush Size Slider UI",
+      "description": "Create a UI component for adjusting brush size, likely using a slider.",
+      "details": "Use the shadcn/ui `Slider` component. Connect it to the state store to read and update the `brushSize` state. Configure the slider with appropriate min/max values and step.",
+      "testStrategy": "Move the slider handle. Verify that the brush size value is correctly updated in the state store and displayed in the UI (if applicable).",
+      "priority": "medium",
+      "dependencies": [
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 10,
+      "title": "Connect Color and Size UI to Drawing Tools",
+      "description": "Connect the selected color and brush size from the state store to the active drawing tool (Pen, Eraser).",
+      "details": "In the `CanvasArea` component or related logic, observe the `color` and `brushSize` states from the store. When the `selectedTool` is 'pen' or 'eraser', update the Fabric.js free drawing brush properties (`canvas.freeDrawingBrush.color`, `canvas.freeDrawingBrush.width`) based on the current state values.",
+      "testStrategy": "Select the Pen tool. Change the color and brush size using the UI controls. Draw on the canvas and verify that the lines are drawn with the selected color and size. Repeat for the Eraser tool (size might apply, color might not depending on implementation).",
+      "priority": "high",
+      "dependencies": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 11,
+      "title": "Implement History Stack Management",
+      "description": "Implement a mechanism to track canvas changes and store them in a history stack for undo/redo functionality.",
+      "details": "Add `history` (an array or stack structure) and `historyIndex` states to the store. Implement actions like `addHistoryEntry`, `undo`, `redo`. Each history entry should represent a state of the canvas (e.g., a serializable JSON representation from Fabric.js `canvas.toJSON()`). Manage the stack to allow navigation.",
+      "testStrategy": "Manually call `addHistoryEntry` with dummy data. Call `undo` and `redo`. Verify that the `historyIndex` and the content of the history stack are updated correctly according to stack logic (LIFO for undo, FIFO for redo from the current point).",
+      "priority": "high",
+      "dependencies": [
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 12,
+      "title": "Integrate History with Canvas Operations",
+      "description": "Integrate the history stack with canvas operations so that drawing, erasing, and other modifications are recorded, and undo/redo actions correctly restore previous canvas states.",
+      "details": "Listen to Fabric.js events that modify the canvas (`object:added`, `object:removed`, `object:modified`, `path:created`). After handling the event (e.g., adding the object), serialize the canvas state (`canvas.toJSON()`) and dispatch the `addHistoryEntry` action. Implement logic for `undo` and `redo` actions: retrieve the correct state from the history stack, clear the current canvas, and load the state using `canvas.loadFromJSON()`. Handle potential async loading.",
+      "testStrategy": "Draw multiple lines/shapes. Click 'Undo'. Verify the last action is reversed on the canvas. Click 'Undo' again. Verify the previous action is reversed. Click 'Redo'. Verify the undone action is reapplied. Draw something, then undo, then draw something else. Verify redo is disabled for the original path.",
+      "priority": "high",
+      "dependencies": [
+        6,
+        7,
+        10,
+        11
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 13,
+      "title": "Implement Local Storage Save Functionality",
+      "description": "Implement functionality to save the current canvas state to the browser's local storage.",
+      "details": "Add a 'Save' button (depends on Task 5). When clicked, get the current canvas state (e.g., `canvas.toJSON()`). Serialize the state to a JSON string. Use `localStorage.setItem()` to save the string under a predefined key (e.g., 'canvasDrawState'). Consider debouncing/throttling for auto-save.",
+      "testStrategy": "Draw something on the canvas. Click 'Save'. Open browser developer tools and inspect Local Storage. Verify that an item with the correct key exists and its value is a non-empty JSON string representing the canvas content.",
+      "priority": "medium",
+      "dependencies": [
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 14,
+      "title": "Implement Local Storage Load Functionality",
+      "description": "Implement functionality to load a previously saved canvas state from local storage.",
+      "details": "Add a 'Load' button or implement loading on application startup. Use `localStorage.getItem()` to retrieve the saved JSON string. Parse the string. Use `canvas.loadFromJSON()` to load the state onto the Fabric.js canvas. Handle cases where no saved state exists.",
+      "testStrategy": "Save a drawing (Task 13). Refresh the page or navigate away and back. Verify that the previously saved drawing is automatically loaded onto the canvas upon initialization.",
+      "priority": "medium",
+      "dependencies": [
+        4,
+        13
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 15,
+      "title": "Implement Image Export Functionality",
+      "description": "Implement functionality to export the current canvas content as an image file (PNG and JPEG).",
+      "details": "Add 'Export as PNG' and 'Export as JPEG' buttons (depends on Task 5). Use Fabric.js methods like `canvas.toDataURL()` or `canvas.toBlob()` to get the image data. Create a download link (`<a>` element) with the `href` set to the data URL/blob URL and the `download` attribute set to a filename. Programmatically click the link.",
+      "testStrategy": "Draw something. Click 'Export as PNG'. Verify that a PNG file is downloaded and that it contains the correct canvas content. Repeat for JPEG.",
+      "priority": "medium",
+      "dependencies": [
+        2
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 16,
+      "title": "Develop Responsive Layout and Mobile Support",
+      "description": "Ensure the application layout and UI components are responsive and adapt well to different screen sizes (desktop and mobile).",
+      "details": "Use Tailwind CSS utility classes for responsive design (e.g., `sm:`, `md:`, `lg:`). Adapt the main layout, toolbars, and settings panels to fit smaller screens. Consider using shadcn/ui components like `Sheet` for mobile sidebars/menus.",
+      "testStrategy": "Resize the browser window from desktop size down to mobile size. Verify that the layout adjusts correctly, elements stack or hide appropriately, and the application remains usable on small screens.",
+      "priority": "medium",
+      "dependencies": [
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 17,
+      "title": "Implement Dark/Light Mode Toggle",
+      "description": "Implement support for switching between light and dark UI themes.",
+      "details": "Leverage shadcn/ui's built-in dark mode support (usually via Tailwind CSS classes and a context provider). Add a toggle button (e.g., using shadcn/ui `Button` and an icon) to switch the theme. Store the user's preference (e.g., in local storage).",
+      "testStrategy": "Click the theme toggle button. Verify that the UI colors switch between light and dark themes. Refresh the page and verify that the selected theme persists (if implemented).",
+      "priority": "medium",
+      "dependencies": [
+        5
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 18,
+      "title": "Add Basic Shape Drawing Tools",
+      "description": "Add basic shape drawing tools like Rectangle and Circle using Fabric.js.",
+      "details": "Add buttons for Rectangle and Circle tools (depends on Task 5). When a shape tool is selected, update the state store. Implement mouse down/move/up logic on the canvas to draw the shape dynamically as the user drags. Create Fabric.js `fabric.Rect` and `fabric.Circle` objects. Add the created shape to the canvas and record the action in the history stack.",
+      "testStrategy": "Select the Rectangle tool. Click and drag on the canvas. Verify that a rectangle is drawn. Select the Circle tool. Click and drag. Verify a circle is drawn. Use undo/redo to verify shape creation is recorded in history.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        4,
+        12
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 19,
+      "title": "Add Text Insertion Tool",
+      "description": "Add a tool to insert and edit text on the canvas using Fabric.js text objects.",
+      "details": "Add a button for the Text tool (depends on Task 5). When selected, update the state store. On canvas click, create a Fabric.js `fabric.IText` object at the click location. Add it to the canvas and enter editing mode. Allow basic text editing. Record text creation/modification in the history stack.",
+      "testStrategy": "Select the Text tool. Click on the canvas. Verify that a text box appears and is editable. Type some text. Click outside to exit editing. Verify the text object is rendered. Use undo/redo to verify text creation is recorded.",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        4,
+        12
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 20,
+      "title": "Implement Canvas Performance Optimizations",
+      "description": "Identify and implement performance optimizations for canvas rendering, especially for complex drawings or large canvases.",
+      "details": "Investigate Fabric.js performance options (e.g., caching, rendering settings). Optimize event handling. Consider techniques like drawing on a temporary canvas for complex brush strokes or using requestAnimationFrame. Profile performance to identify bottlenecks.",
+      "testStrategy": "Create a complex drawing with many objects or intricate brush strokes. Test drawing performance on different devices/browsers. Measure frame rates or rendering times before and after optimizations. Verify that the application remains responsive during drawing.",
+      "priority": "low",
+      "dependencies": [
+        2,
+        6,
+        7,
+        18,
+        19
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 21,
+      "title": "Basic UX Improvements and Refinements",
+      "description": "Make general improvements to the user interface and experience based on the UI/UX considerations in the PRD.",
+      "details": "Refine tool icons and labels. Improve accessibility (ARIA attributes, keyboard navigation). Add subtle animations or transitions using Tailwind CSS. Ensure consistent styling across all UI elements. Implement clear active states for selected tools.",
+      "testStrategy": "Navigate through the application using keyboard and screen reader (if applicable). Test UI on different devices and browsers. Gather feedback from users on intuitiveness and ease of use. Verify visual consistency.",
+      "priority": "low",
+      "dependencies": [
+        5,
+        8,
+        9,
+        16,
+        17
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

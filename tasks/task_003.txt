@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Implement State Management Store
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Set up a global state management store using Zustand or Jotai to manage application state like selected tool, color, brush size, canvas state, and history.
+# Details:
+Create a Zustand store (e.g., `useCanvasStore.ts`) with initial state for `selectedTool`, `color`, `brushSize`, `canvasState`, `history`, etc. Include actions to update these states. Decide whether to store Fabric.js objects directly or their serializable representations.
+
+# Test Strategy:
+Create simple components that read and update values from the store. Verify that state changes are reflected correctly across components subscribed to the store.

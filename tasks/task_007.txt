@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: Implement Basic Drawing Tool: Eraser
+# Status: pending
+# Dependencies: 2, 4
+# Priority: high
+# Description: Implement the basic 'Eraser' drawing tool functionality.
+# Details:
+Add a button for the Eraser tool (depends on Task 5). When selected, update the state store. Implement eraser logic. This might involve using a special 'erasing' brush that draws with transparent color or using Fabric.js's `globalCompositeOperation = 'destination-out'` while drawing on a temporary canvas, then merging.
+
+# Test Strategy:
+Draw some shapes/lines with the pen. Select the Eraser tool. Click and drag over existing drawings. Verify that the parts under the eraser path are removed or become transparent.

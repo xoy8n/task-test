@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Develop Responsive Layout and Mobile Support
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Ensure the application layout and UI components are responsive and adapt well to different screen sizes (desktop and mobile).
+# Details:
+Use Tailwind CSS utility classes for responsive design (e.g., `sm:`, `md:`, `lg:`). Adapt the main layout, toolbars, and settings panels to fit smaller screens. Consider using shadcn/ui components like `Sheet` for mobile sidebars/menus.
+
+# Test Strategy:
+Resize the browser window from desktop size down to mobile size. Verify that the layout adjusts correctly, elements stack or hide appropriately, and the application remains usable on small screens.

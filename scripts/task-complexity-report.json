@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2025-05-12T09:22:11.716Z",
-    "tasksAnalyzed": 14,
+    "generatedAt": "2025-05-13T08:53:13.138Z",
+    "tasksAnalyzed": 21,
     "thresholdScore": 5,
     "projectName": "Taskmaster",
     "usedResearch": false
@@ -9,115 +9,171 @@
   "complexityAnalysis": [
     {
       "taskId": 1,
-      "taskTitle": "Project Setup and UI Framework Integration",
+      "taskTitle": "Setup Project and Core Dependencies",
       "complexityScore": 4,
       "recommendedSubtasks": 5,
-      "expansionPrompt": "Break down the 'Project Setup and UI Framework Integration' task into detailed steps including Next.js initialization, Tailwind CSS installation and configuration, shadcn/ui initialization, and adding initial components.",
-      "reasoning": "Standard project setup involving multiple well-documented steps for integrating common frontend libraries. Already well-structured with existing subtasks."
+      "expansionPrompt": "Break down the task 'Setup Project and Core Dependencies' into smaller, actionable steps including initializing Next.js, configuring Tailwind CSS, installing and initializing shadcn/ui, installing Fabric.js and state management library, and setting up basic directory structure.",
+      "reasoning": "Standard project setup involving multiple key libraries and configurations, which can sometimes have minor compatibility hurdles."
     },
     {
       "taskId": 2,
-      "taskTitle": "Setup State Management (Zustand)",
+      "taskTitle": "Implement Core Canvas Component",
       "complexityScore": 3,
-      "recommendedSubtasks": 3,
-      "expansionPrompt": "Break down the 'Setup State Management (Zustand)' task into steps including installing Zustand, defining the initial store structure, and implementing basic state update actions.",
-      "reasoning": "Involves installing a library and defining a simple state structure and actions, which is a relatively straightforward process."
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the task 'Implement Core Canvas Component' into smaller steps covering creating the React component, rendering the canvas element, initializing Fabric.js in useEffect, handling cleanup, and potentially exposing the canvas instance.",
+      "reasoning": "Involves creating a basic React component and initializing a library instance within the component lifecycle."
     },
     {
       "taskId": 3,
-      "taskTitle": "Implement Basic Layout and Toolbar UI",
-      "complexityScore": 5,
-      "recommendedSubtasks": 3,
-      "expansionPrompt": "Break down the 'Implement Basic Layout and Toolbar UI' task into steps including creating the main page layout, building the toolbar using shadcn/ui components, and connecting toolbar controls to the Zustand state store.",
-      "reasoning": "Requires arranging UI components, using a UI library, and integrating with state management, which can involve some layout and component composition effort."
+      "taskTitle": "Implement State Management Store",
+      "complexityScore": 3,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the task 'Implement State Management Store' into steps including creating the store file, defining the initial state structure, and implementing basic actions for state updates.",
+      "reasoning": "Standard setup of a state management store using a modern library like Zustand or Jotai."
     },
     {
       "taskId": 4,
-      "taskTitle": "Integrate Fabric.js and Canvas Component",
+      "taskTitle": "Integrate Canvas with State Management",
       "complexityScore": 6,
-      "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Integrate Fabric.js and Canvas Component' task into steps including installing Fabric.js, creating the React canvas component, initializing the Fabric.js instance within the component, and implementing canvas resizing logic.",
-      "reasoning": "Involves integrating an external non-React library into a React component, managing its lifecycle with effects, and handling DOM element interactions like resizing, adding moderate complexity."
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the task 'Integrate Canvas with State Management' into steps covering accessing the store in the canvas component, storing canvas reference in state, listening to relevant Fabric.js events, dispatching state updates based on events, and potentially reacting to state changes from the canvas component.",
+      "reasoning": "Requires coordinating state changes between the canvas library (event-driven) and the application's global state store, involving careful handling of side effects and subscriptions."
     },
     {
       "taskId": 5,
-      "taskTitle": "Implement Pen Drawing Tool",
+      "taskTitle": "Implement Base Layout and UI Framework",
       "complexityScore": 4,
-      "recommendedSubtasks": 3,
-      "expansionPrompt": "Break down the 'Implement Pen Drawing Tool' task into steps including enabling Fabric.js free drawing mode and configuring the default brush properties based on application state.",
-      "reasoning": "Utilizes a standard feature of the integrated library (Fabric.js free drawing) and connects it to existing state, which is relatively simple."
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the task 'Implement Base Layout and UI Framework' into steps including designing the layout structure, creating main layout components, adding placeholders for UI sections, integrating the canvas component placeholder, and ensuring basic responsiveness.",
+      "reasoning": "Standard UI layout implementation using a framework and CSS utilities, including basic responsiveness."
     },
     {
       "taskId": 6,
-      "taskTitle": "Implement Eraser Tool",
-      "complexityScore": 7,
+      "taskTitle": "Implement Basic Drawing Tool: Pen",
+      "complexityScore": 4,
       "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Eraser Tool' task into steps including researching Fabric.js eraser techniques, implementing the chosen eraser brush logic (e.g., using composite operations), and integrating the eraser tool selection with the application state.",
-      "reasoning": "Implementing an eraser in canvas libraries often requires workarounds or specific techniques (like composite operations) beyond basic drawing, adding significant complexity compared to a simple pen."
+      "expansionPrompt": "Break down the task 'Implement Basic Drawing Tool: Pen' into steps covering adding the UI control, updating state on selection, observing state in the canvas component, enabling Fabric.js free drawing mode, and configuring the brush.",
+      "reasoning": "Utilizes a built-in feature of Fabric.js and connects it to the application's UI state."
     },
     {
       "taskId": 7,
-      "taskTitle": "Implement Color Picker UI",
-      "complexityScore": 3,
-      "recommendedSubtasks": 3,
-      "expansionPrompt": "Break down the 'Implement Color Picker UI' task into steps including adding the color picker component to the toolbar, connecting its value to the state store, and updating the Fabric.js brush color accordingly.",
-      "reasoning": "Involves adding a UI component and linking its value to state and the canvas brush property, a standard UI integration task."
+      "taskTitle": "Implement Basic Drawing Tool: Eraser",
+      "complexityScore": 6,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the task 'Implement Basic Drawing Tool: Eraser' into steps covering adding the UI control, updating state, observing state, researching and choosing an eraser implementation method (e.g., composite operations, custom brush), and applying the eraser logic on canvas interaction.",
+      "reasoning": "Eraser functionality can be more complex than simple drawing, potentially requiring custom logic or specific canvas rendering techniques."
     },
     {
       "taskId": 8,
-      "taskTitle": "Implement Brush Size and Opacity Controls",
+      "taskTitle": "Implement Color Picker UI",
       "complexityScore": 3,
-      "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Brush Size and Opacity Controls' task into steps including adding slider components for size and opacity to the toolbar, connecting their values to the state store, and updating the Fabric.js brush size and opacity properties.",
-      "reasoning": "Similar to the color picker, involves adding UI components (sliders) and linking their values to state and canvas brush properties."
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Break down the task 'Implement Color Picker UI' into steps covering selecting/implementing the color picker component, integrating it into the layout, and connecting it to the state management store.",
+      "reasoning": "Standard UI component integration and connection to state."
     },
     {
       "taskId": 9,
-      "taskTitle": "Implement Undo/Redo Functionality",
-      "complexityScore": 7,
-      "recommendedSubtasks": 6,
-      "expansionPrompt": "Break down the 'Implement Undo/Redo Functionality' task into steps including designing the history state structure, implementing canvas state serialization and deserialization, implementing the undo logic, implementing the redo logic, adding UI buttons, and handling history state updates on new actions.",
-      "reasoning": "Requires careful state management (history stack), serialization/deserialization of complex canvas objects, and handling edge cases (like clearing redo stack), making it moderately complex."
+      "taskTitle": "Implement Brush Size Slider UI",
+      "complexityScore": 2,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Break down the task 'Implement Brush Size Slider UI' into steps covering adding the slider component, configuring its properties, and connecting it to the state management store.",
+      "reasoning": "Simple UI component integration and connection to state."
     },
     {
       "taskId": 10,
-      "taskTitle": "Implement Local Storage Save",
-      "complexityScore": 3,
+      "taskTitle": "Connect Color and Size UI to Drawing Tools",
+      "complexityScore": 4,
       "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Local Storage Save' task into steps including adding a save button to the UI, implementing the button click handler, serializing the canvas state, and saving the state string to local storage.",
-      "reasoning": "Involves using a standard browser API (localStorage) and a Fabric.js serialization method, which is straightforward."
+      "expansionPrompt": "Break down the task 'Connect Color and Size UI to Drawing Tools' into steps covering observing color and brush size state, updating the Fabric.js brush color property, and updating the Fabric.js brush width property based on state changes.",
+      "reasoning": "Connecting UI state values to specific properties of the active canvas drawing tool."
     },
     {
       "taskId": 11,
-      "taskTitle": "Implement Local Storage Load",
-      "complexityScore": 4,
-      "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Local Storage Load' task into steps including checking local storage on application load, retrieving the saved state string, deserializing and loading the state into the canvas, and handling potential loading errors.",
-      "reasoning": "Similar to saving, involves using a standard browser API and a Fabric.js deserialization method, but requires careful integration into the component's initialization lifecycle."
+      "taskTitle": "Implement History Stack Management",
+      "complexityScore": 5,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the task 'Implement History Stack Management' into steps covering defining the history state structure, implementing the logic for adding history entries, implementing the undo logic, implementing the redo logic, and managing the history index.",
+      "reasoning": "Involves implementing specific data structure logic (stack) and state transitions within the state management store."
     },
     {
       "taskId": 12,
-      "taskTitle": "Implement Image Export (PNG/JPEG)",
-      "complexityScore": 3,
-      "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Image Export (PNG/JPEG)' task into steps including adding an export button to the UI, implementing the button click handler, getting the canvas data URL, and triggering a file download using an anchor tag.",
-      "reasoning": "Utilizes a Fabric.js method to get image data and a common browser technique for triggering file downloads, which is relatively simple."
+      "taskTitle": "Integrate History with Canvas Operations",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the task 'Integrate History with Canvas Operations' into steps covering identifying canvas modification events, listening to these events, serializing canvas state, dispatching history actions, implementing canvas loading for undo/redo, and handling potential asynchronous aspects.",
+      "reasoning": "Requires comprehensive event handling, reliable state serialization/deserialization, and careful synchronization between the history state and the canvas rendering, which can be complex."
     },
     {
       "taskId": 13,
-      "taskTitle": "Implement Responsive Design and Mobile Support",
-      "complexityScore": 6,
+      "taskTitle": "Implement Local Storage Save Functionality",
+      "complexityScore": 3,
       "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Responsive Design and Mobile Support' task into steps including applying responsive layout styles, implementing dynamic canvas resizing based on container size, and testing functionality on various screen sizes and touch devices.",
-      "reasoning": "Requires applying responsive design principles, implementing dynamic canvas updates based on layout changes, and thorough testing across different environments, adding complexity."
+      "expansionPrompt": "Break down the task 'Implement Local Storage Save Functionality' into steps covering adding the save UI control, getting the canvas state, serializing the state, and saving it to local storage.",
+      "reasoning": "Standard web storage API usage combined with library serialization."
     },
     {
       "taskId": 14,
-      "taskTitle": "Implement Dark/Light Mode",
+      "taskTitle": "Implement Local Storage Load Functionality",
       "complexityScore": 3,
       "recommendedSubtasks": 4,
-      "expansionPrompt": "Break down the 'Implement Dark/Light Mode' task into steps including configuring Tailwind CSS for dark mode, adding a theme toggle UI component, connecting the toggle to the state store, and applying/removing the dark mode class based on the state.",
-      "reasoning": "Involves configuring CSS framework features, adding a UI control, and managing state to apply a theme class, a standard theme switching implementation."
+      "expansionPrompt": "Break down the task 'Implement Local Storage Load Functionality' into steps covering retrieving state from local storage, parsing the state, handling cases with no saved state, and loading the state onto the canvas.",
+      "reasoning": "Standard web storage API usage combined with library deserialization, including handling edge cases."
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "Implement Image Export Functionality",
+      "complexityScore": 4,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the task 'Implement Image Export Functionality' into steps covering adding export UI controls, using Fabric.js export methods, creating download links, and handling different image formats.",
+      "reasoning": "Utilizes library export features and standard browser download techniques."
+    },
+    {
+      "taskId": 16,
+      "taskTitle": "Develop Responsive Layout and Mobile Support",
+      "complexityScore": 5,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the task 'Develop Responsive Layout and Mobile Support' into steps covering reviewing existing layout, applying responsive styles, testing on various screen sizes, and refining UI components for mobile usability.",
+      "reasoning": "Requires applying responsive design principles systematically across the UI and testing on multiple devices/sizes."
+    },
+    {
+      "taskId": 17,
+      "taskTitle": "Implement Dark/Light Mode Toggle",
+      "complexityScore": 3,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the task 'Implement Dark/Light Mode Toggle' into steps covering integrating theme support, adding the toggle UI control, implementing the theme switching logic, and persisting the user's preference.",
+      "reasoning": "Standard theme switching implementation using library features."
+    },
+    {
+      "taskId": 18,
+      "taskTitle": "Add Basic Shape Drawing Tools",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the task 'Add Basic Shape Drawing Tools' into steps covering adding shape tool UI controls, implementing mouse event handlers for drawing start, update, and end, creating and modifying Fabric.js shape objects, adding shapes to the canvas, and integrating with history.",
+      "reasoning": "Involves implementing interactive drawing logic that responds to mouse events and dynamically creates/updates canvas objects."
+    },
+    {
+      "taskId": 19,
+      "taskTitle": "Add Text Insertion Tool",
+      "complexityScore": 5,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the task 'Add Text Insertion Tool' into steps covering adding the text tool UI control, implementing the canvas click handler to create text objects, adding text objects to the canvas, handling text editing mode, and integrating with history.",
+      "reasoning": "Utilizes a specific Fabric.js object type (`IText`) and requires handling its interactive editing state and integration with history."
+    },
+    {
+      "taskId": 20,
+      "taskTitle": "Implement Canvas Performance Optimizations",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the task 'Implement Canvas Performance Optimizations' into steps covering profiling current performance, researching Fabric.js and canvas optimization techniques, implementing specific optimizations, and testing/measuring the impact of changes.",
+      "reasoning": "Requires profiling, in-depth knowledge of canvas and library rendering, and iterative implementation/testing, which can be complex and time-consuming."
+    },
+    {
+      "taskId": 21,
+      "taskTitle": "Basic UX Improvements and Refinements",
+      "complexityScore": 4,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the task 'Basic UX Improvements and Refinements' into specific steps covering refining UI elements, improving accessibility, adding minor visual enhancements, and ensuring overall consistency.",
+      "reasoning": "Involves numerous small UI/UX adjustments across the application based on design or feedback."
     }
   ]
 }

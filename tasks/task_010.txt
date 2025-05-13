@@ -1,0 +1,11 @@
+# Task ID: 10
+# Title: Connect Color and Size UI to Drawing Tools
+# Status: pending
+# Dependencies: 6, 7, 8, 9
+# Priority: high
+# Description: Connect the selected color and brush size from the state store to the active drawing tool (Pen, Eraser).
+# Details:
+In the `CanvasArea` component or related logic, observe the `color` and `brushSize` states from the store. When the `selectedTool` is 'pen' or 'eraser', update the Fabric.js free drawing brush properties (`canvas.freeDrawingBrush.color`, `canvas.freeDrawingBrush.width`) based on the current state values.
+
+# Test Strategy:
+Select the Pen tool. Change the color and brush size using the UI controls. Draw on the canvas and verify that the lines are drawn with the selected color and size. Repeat for the Eraser tool (size might apply, color might not depending on implementation).

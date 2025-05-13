@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Implement Image Export Functionality
+# Status: pending
+# Dependencies: 2
+# Priority: medium
+# Description: Implement functionality to export the current canvas content as an image file (PNG and JPEG).
+# Details:
+Add 'Export as PNG' and 'Export as JPEG' buttons (depends on Task 5). Use Fabric.js methods like `canvas.toDataURL()` or `canvas.toBlob()` to get the image data. Create a download link (`<a>` element) with the `href` set to the data URL/blob URL and the `download` attribute set to a filename. Programmatically click the link.
+
+# Test Strategy:
+Draw something. Click 'Export as PNG'. Verify that a PNG file is downloaded and that it contains the correct canvas content. Repeat for JPEG.

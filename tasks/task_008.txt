@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Implement Color Picker UI
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Create a UI component for selecting colors, likely using a color picker library or a custom implementation with shadcn/ui.
+# Details:
+Use a shadcn/ui component like `Popover` or `Dialog` to contain a color selection interface. This could be a simple palette or an advanced color picker component. Connect it to the state store to read and update the `color` state.
+
+# Test Strategy:
+Open the color picker. Select different colors. Verify that the selected color is correctly updated in the state store and displayed in the UI.

@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Integrate History with Canvas Operations
+# Status: pending
+# Dependencies: 6, 7, 10, 11
+# Priority: high
+# Description: Integrate the history stack with canvas operations so that drawing, erasing, and other modifications are recorded, and undo/redo actions correctly restore previous canvas states.
+# Details:
+Listen to Fabric.js events that modify the canvas (`object:added`, `object:removed`, `object:modified`, `path:created`). After handling the event (e.g., adding the object), serialize the canvas state (`canvas.toJSON()`) and dispatch the `addHistoryEntry` action. Implement logic for `undo` and `redo` actions: retrieve the correct state from the history stack, clear the current canvas, and load the state using `canvas.loadFromJSON()`. Handle potential async loading.
+
+# Test Strategy:
+Draw multiple lines/shapes. Click 'Undo'. Verify the last action is reversed on the canvas. Click 'Undo' again. Verify the previous action is reversed. Click 'Redo'. Verify the undone action is reapplied. Draw something, then undo, then draw something else. Verify redo is disabled for the original path.
