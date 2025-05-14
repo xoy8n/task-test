@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: Implement Basic Word Validation (Used Words)
+# Status: pending
+# Dependencies: 4
+# Priority: medium
+# Description: Implement the basic word validation logic as specified in the MVP, focusing on preventing the reuse of words already played in the current game session.
+# Details:
+Modify the `handleUserTurn` function within the game logic (Task 4) to check if the user's submitted word exists in the `usedWordsList`. If it does, trigger the game-end condition for the user (AI wins). If the word is valid (not in the list), add it to the `usedWordsList` before proceeding.
+
+# Test Strategy:
+Start a game and play a few turns. Attempt to submit a word that has already been used by either the user or the AI in the current session. Verify that the validation fails and the game ends with the AI winning. Play a game using only unique words and verify that the game continues without ending prematurely due to this validation.

@@ -1,0 +1,68 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Next.js Project",
+      "description": "Initialize a Next.js project using App Router and TypeScript to establish the basic development environment and project structure.",
+      "details": "Use `create-next-app` with the `--typescript` and `--app` flags. Configure the basic project structure according to Next.js App Router conventions. Ensure TypeScript is correctly set up.",
+      "testStrategy": "Verify the project builds successfully (`npm run build` or `yarn build`) and runs locally (`npm run dev` or `yarn dev`). Check TypeScript compilation for basic files.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": []
+    },
+    {
+      "id": 2,
+      "title": "Implement Basic Game UI",
+      "description": "Implement the core user interface components required for the game, including the word input field, AI response display area, current word status, game state indicator, and game start/restart buttons.",
+      "details": "Develop React components within the `app` directory using React 18 features. Create components for the input form, message display area, status board, and control buttons. Focus on basic layout and structure as described in the PRD's UI elements section.",
+      "testStrategy": "Render the main game page in a web browser. Visually inspect that all required UI elements (input, output area, status text, buttons) are present and correctly positioned according to the basic layout.",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "title": "Integrate Gemini API with Function Calling",
+      "description": "Integrate with the Google Gemini-2.0-Flash API, specifically implementing the Function Calling mechanism to request the next word from the AI based on the game state.",
+      "details": "Use the Google AI SDK. Define the `get_next_korean_word` function schema exactly as provided in the PRD Appendix, including parameters for `last_word` and `used_words`. Implement a server-side API route (e.g., using Next.js API Routes or Edge Functions) or initially call directly from the client (with a note about security risk as per PRD MVP) to interact with the Gemini API. Pass the user's last word and the list of used words in the prompt. Parse the API response to extract the word suggested by the `get_next_korean_word` function call.",
+      "testStrategy": "Create a test function or endpoint that simulates a game turn by calling the Gemini API integration logic with sample `last_word` and `used_words` data. Verify that the API call is made successfully and the response is correctly parsed to return the AI's suggested word via the Function Calling mechanism. Check for error handling if the API fails or returns an unexpected response.",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "in-progress",
+      "subtasks": []
+    },
+    {
+      "id": 4,
+      "title": "Implement Core Game Flow and State Management",
+      "description": "Implement the core game logic including managing turns between the user and AI, tracking the current game state, and handling the start and end conditions of the game.",
+      "details": "Implement state management (e.g., using React's `useState` or `useReducer`) to track `gameState` ('idle', 'user_turn', 'ai_turn', 'user_win', 'ai_win'), `currentWord`, and `usedWordsList`. Connect the UI elements (Task 2) to state changes. Implement functions for `startGame`, `handleUserTurn` (triggering AI turn after user input), `handleAITurn` (calling the Gemini API integration from Task 3), and `endGame`. Define basic win/loss conditions (e.g., failure to provide a valid word).",
+      "testStrategy": "Manually interact with the UI to simulate a game session. Test clicking '게임 시작', entering words as the user, observing AI responses, and verifying that the game state updates correctly (e.g., turn changes, game ends when a condition is met). Use browser developer tools to inspect state variables.",
+      "priority": "high",
+      "dependencies": [
+        2,
+        3
+      ],
+      "status": "pending",
+      "subtasks": []
+    },
+    {
+      "id": 5,
+      "title": "Implement Basic Word Validation (Used Words)",
+      "description": "Implement the basic word validation logic as specified in the MVP, focusing on preventing the reuse of words already played in the current game session.",
+      "details": "Modify the `handleUserTurn` function within the game logic (Task 4) to check if the user's submitted word exists in the `usedWordsList`. If it does, trigger the game-end condition for the user (AI wins). If the word is valid (not in the list), add it to the `usedWordsList` before proceeding.",
+      "testStrategy": "Start a game and play a few turns. Attempt to submit a word that has already been used by either the user or the AI in the current session. Verify that the validation fails and the game ends with the AI winning. Play a game using only unique words and verify that the game continues without ending prematurely due to this validation.",
+      "priority": "medium",
+      "dependencies": [
+        4
+      ],
+      "status": "pending",
+      "subtasks": []
+    }
+  ]
+}

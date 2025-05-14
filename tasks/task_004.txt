@@ -1,0 +1,11 @@
+# Task ID: 4
+# Title: Implement Core Game Flow and State Management
+# Status: pending
+# Dependencies: 2, 3
+# Priority: high
+# Description: Implement the core game logic including managing turns between the user and AI, tracking the current game state, and handling the start and end conditions of the game.
+# Details:
+Implement state management (e.g., using React's `useState` or `useReducer`) to track `gameState` ('idle', 'user_turn', 'ai_turn', 'user_win', 'ai_win'), `currentWord`, and `usedWordsList`. Connect the UI elements (Task 2) to state changes. Implement functions for `startGame`, `handleUserTurn` (triggering AI turn after user input), `handleAITurn` (calling the Gemini API integration from Task 3), and `endGame`. Define basic win/loss conditions (e.g., failure to provide a valid word).
+
+# Test Strategy:
+Manually interact with the UI to simulate a game session. Test clicking '게임 시작', entering words as the user, observing AI responses, and verifying that the game state updates correctly (e.g., turn changes, game ends when a condition is met). Use browser developer tools to inspect state variables.

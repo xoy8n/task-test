@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Integrate Gemini API with Function Calling
+# Status: in-progress
+# Dependencies: 1
+# Priority: high
+# Description: Integrate with the Google Gemini-2.0-Flash API, specifically implementing the Function Calling mechanism to request the next word from the AI based on the game state.
+# Details:
+Use the Google AI SDK. Define the `get_next_korean_word` function schema exactly as provided in the PRD Appendix, including parameters for `last_word` and `used_words`. Implement a server-side API route (e.g., using Next.js API Routes or Edge Functions) or initially call directly from the client (with a note about security risk as per PRD MVP) to interact with the Gemini API. Pass the user's last word and the list of used words in the prompt. Parse the API response to extract the word suggested by the `get_next_korean_word` function call.
+
+# Test Strategy:
+Create a test function or endpoint that simulates a game turn by calling the Gemini API integration logic with sample `last_word` and `used_words` data. Verify that the API call is made successfully and the response is correctly parsed to return the AI's suggested word via the Function Calling mechanism. Check for error handling if the API fails or returns an unexpected response.
