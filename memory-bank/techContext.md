@@ -43,3 +43,4 @@
 - (백엔드 Node.js 선택 시) `express` (API 서버 구축 시)
 - (테스트 라이브러리) `Jest`, `React Testing Library` (선택 사항)
 - (단어 사전 API 또는 AI API) 관련 SDK 또는 HTTP 클라이언트 라이브러리
+-
