@@ -67,8 +67,21 @@ _초기에는 순수 클라이언트 사이드 아키텍처로 시작하여, 필
 
 ## 4. 데이터 흐름 (Data Flow)
 
-1. 사용자 단어 입력 (UI Module) → 입력 값 전달 (Game Logic Module)
-2. 이전 단어 끝말과 사용자 입력 단어 첫말 일치 확인 (Game Logic Module)
+**게임 시작 시:**
+
+1. 사용자 첫 단어 입력 (UI Module) → 입력 값 전달 (Game Logic Module)
+2. 첫 단어 유효성 검사 (길이 등) (Game Logic Module)
+3. (유효 시) 사용된 단어 목록에 첫 단어 추가, AI 턴으로 전환 (Game Logic Module)
+4. AI 응답 생성 요청 (첫 단어의 끝 글자 전달) (Game Logic Module → AI Response Generation Module)
+5. AI 단어 반환 (AI Response Generation Module → Game Logic Module)
+6. AI 단어 유효성 검사 (Game Logic Module → Word Validation Module)
+7. (유효 시) AI 단어를 현재 단어로 설정, 사용자 턴으로 전환 (Game Logic Module)
+8. 변경된 게임 상태 UI에 반영 (Game Logic Module → UI Module / State Management Module → UI Module)
+
+**게임 진행 중 (사용자 턴):**
+
+1. 사용자 다음 단어 입력 (UI Module) → 입력 값 전달 (Game Logic Module)
+2. 이전 단어(AI 제시어) 끝말과 사용자 입력 단어 첫말 일치 확인 (Game Logic Module)
 3. 단어 유효성 검사 요청 (Game Logic Module → Word Validation Module)
 4. 유효성 검사 결과 반환 (Word Validation Module → Game Logic Module)
 5. (유효 시) 사용된 단어 목록 업데이트, AI 턴으로 전환 (Game Logic Module)
