@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,25 +11,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Toaster, toast } from "sonner";
 import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert";
-import { Toaster, toast } from 'sonner';
-import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} from "@google/generative-ai";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 let genAI;
 let model;
 
-if (typeof window !== 'undefined' && API_KEY) {
+if (typeof window !== "undefined" && API_KEY) {
   genAI = new GoogleGenerativeAI(API_KEY);
   model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash",
   });
-} else if (typeof window !== 'undefined' && !API_KEY) {
-  console.error("Gemini API 키가 설정되지 않았습니다. .env.local 파일을 확인해주세요.");
+} else if (typeof window !== "undefined" && !API_KEY) {
+  console.error(
+    "Gemini API 키가 설정되지 않았습니다. .env.local 파일을 확인해주세요."
+  );
 }
 
 const tools = [
@@ -37,7 +39,8 @@ const tools = [
     functionDeclarations: [
       {
         name: "generate_korean_word_chain_word",
-        description: "제시된 시작 글자로 시작하고, 이전에 사용되지 않은 유효한 한글 명사 단어를 생성하여 끝말잇기를 이어갑니다. 한 글자 단어나 이미 사용된 단어는 생성하지 마세요.",
+        description:
+          "제시된 시작 글자로 시작하고, 이전에 사용되지 않은 유효한 한글 명사 단어를 생성하여 끝말잇기를 이어갑니다. 한 글자 단어나 이미 사용된 단어는 생성하지 마세요.",
         parameters: {
           type: "OBJECT",
           properties: {
@@ -48,21 +51,24 @@ const tools = [
             usedWords: {
               type: "ARRAY",
               items: { type: "STRING" },
-              description: "게임에서 이미 사용된 단어들의 목록입니다. 이 목록에 없는 단어를 생성해야 합니다. (예: [\'시작\', \'자동차\'])",
+              description:
+                "게임에서 이미 사용된 단어들의 목록입니다. 이 목록에 없는 단어를 생성해야 합니다. (예: [\'시작\', \'자동차\'])",
             },
           },
           required: ["startLetter", "usedWords"],
         },
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState('');
-  const [currentWord, setCurrentWord] = useState('시작');
-  const [gameMessage, setGameMessage] = useState("`'작'으로 시작하는 단어를 입력하세요.`");
-  const [history, setHistory] = useState(['시작']);
+  const [inputValue, setInputValue] = useState("");
+  const [currentWord, setCurrentWord] = useState("");
+  const [gameMessage, setGameMessage] = useState(
+    "첫 단어를 입력하고 게임을 시작하세요!"
+  );
+  const [history, setHistory] = useState([]);
   const [isAiThinking, setIsAiThinking] = useState(false);
 
   const getAiResponse = useCallback(async (startLetter, usedWordsList) => {
@@ -72,7 +78,9 @@ export default function Home() {
       return null;
     }
     setIsAiThinking(true);
-    console.log(`[DEBUG] getAiResponse 호출됨. 시작 글자: ${startLetter}, 사용된 단어: ${usedWordsList.join(', ')}`);
+    console.log(
+      `[DEBUG] getAiResponse 호출됨. 시작 글자: ${startLetter}, 사용된 단어: ${usedWordsList.join(", ")}`
+    );
     try {
       const chat = model.startChat({
         tools: tools,
@@ -82,30 +90,45 @@ export default function Home() {
       console.log("[DEBUG] 생성된 프롬프트 (텍스트 응답 유도 강화):", prompt);
 
       const result = await chat.sendMessage(prompt);
-      console.log("[DEBUG] API 결과 (result):", JSON.stringify(result, null, 2));
-      
+      console.log(
+        "[DEBUG] API 결과 (result):",
+        JSON.stringify(result, null, 2)
+      );
+
       const response = result.response;
-      console.log("[DEBUG] API 응답 (response):", JSON.stringify(response, null, 2));
+      console.log(
+        "[DEBUG] API 응답 (response):",
+        JSON.stringify(response, null, 2)
+      );
 
       if (response.text) {
         const aiText = response.text().trim();
         if (response.functionCalls && response.functionCalls.length > 0) {
-            console.warn("[DEBUG] AI가 텍스트와 함께 함수 호출도 제안했습니다:", JSON.stringify(response.functionCalls[0], null, 2));
+          console.warn(
+            "[DEBUG] AI가 텍스트와 함께 함수 호출도 제안했습니다:",
+            JSON.stringify(response.functionCalls[0], null, 2)
+          );
         }
         console.log("[DEBUG] AI 텍스트 응답:", aiText);
         if (aiText) return aiText;
       }
-      
+
       if (response.functionCalls && response.functionCalls.length > 0) {
-        console.log("[DEBUG] AI가 (텍스트 없이) 함수 호출만 제안했습니다:", JSON.stringify(response.functionCalls[0], null, 2));
-        toast.error("AI가 단어를 직접 생성하지 않고 함수 호출을 제안했습니다. 프롬프트를 확인해주세요.");
+        console.log(
+          "[DEBUG] AI가 (텍스트 없이) 함수 호출만 제안했습니다:",
+          JSON.stringify(response.functionCalls[0], null, 2)
+        );
+        toast.error(
+          "AI가 단어를 직접 생성하지 않고 함수 호출을 제안했습니다. 프롬프트를 확인해주세요."
+        );
         return null;
       }
-      
-      toast.error("AI가 응답을 생성하지 못했습니다. (텍스트/함수 호출 모두 유효하지 않음)");
+
+      toast.error(
+        "AI가 응답을 생성하지 못했습니다. (텍스트/함수 호출 모두 유효하지 않음)"
+      );
       console.error("[DEBUG] AI 응답에 유효한 텍스트나 함수 호출이 없음");
       return null;
-
     } catch (error) {
       console.error("[DEBUG] AI 응답 생성 중 오류 발생:", error);
       toast.error("AI 응답 생성 중 오류가 발생했습니다.");
@@ -125,12 +148,79 @@ export default function Home() {
 
     const userWord = inputValue.trim();
     if (!userWord) {
-      toast.error('단어를 입력해주세요!');
+      toast.error("단어를 입력해주세요!");
       return;
     }
 
+    // 게임 시작: 사용자가 첫 단어를 입력하는 경우
+    if (history.length === 0) {
+      if (userWord.length <= 1) {
+        toast.error("두 글자 이상의 단어를 입력해주세요.");
+        return;
+      }
+      setHistory([userWord]);
+      setCurrentWord(userWord);
+      setInputValue("");
+      setGameMessage(
+        `'${userWord.charAt(userWord.length - 1)}'(으)로 시작하는 단어를 AI가 생각 중입니다...`
+      );
+
+      // AI에게 첫 단어의 마지막 글자로 시작하는 단어 요청
+      const aiStartLetter = userWord.charAt(userWord.length - 1);
+      const aiWord = await getAiResponse(aiStartLetter, [userWord]); // history 대신 [userWord] 전달
+
+      if (aiWord) {
+        if ([userWord].includes(aiWord)) {
+          // history 대신 [userWord]로 검사
+          toast.error(
+            `AI가 이미 사용된 단어('${aiWord}')를 제시했습니다. 다시 시도합니다.`
+          );
+          setGameMessage("AI가 중복된 단어를 제시했습니다. 당신의 차례입니다.");
+          // 이 경우, 사용자가 다시 첫 단어를 입력하도록 하거나, 다른 로직을 추가할 수 있습니다.
+          // 여기서는 일단 게임 메시지만 변경하고, currentWord는 사용자가 입력한 첫 단어로 유지합니다.
+          return;
+        }
+        if (aiWord.length <= 1) {
+          toast.error(
+            `AI가 한 글자 단어('${aiWord}')를 제시했습니다. 다시 시도합니다.`
+          );
+          setGameMessage(
+            "AI가 너무 짧은 단어를 제시했습니다. 당신의 차례입니다."
+          );
+          return;
+        }
+        if (aiStartLetter !== aiWord.charAt(0)) {
+          toast.error(
+            `AI가 규칙에 맞지 않는 단어('${aiWord}')를 제시했습니다. (시작 글자 불일치)`
+          );
+          setGameMessage(
+            "AI가 규칙에 어긋난 단어를 제시했습니다. 당신의 차례입니다."
+          );
+          return;
+        }
+
+        setHistory([userWord, aiWord]); // history 업데이트
+        setCurrentWord(aiWord);
+        const nextUserStartLetter = aiWord.charAt(aiWord.length - 1);
+        setGameMessage(
+          `'${nextUserStartLetter}'(으)로 시작하는 단어를 입력하세요.`
+        );
+      } else {
+        // AI가 첫 단어에 대한 응답을 못 찾은 경우, 사용자가 입력한 단어를 현재 단어로 유지하고 다시 사용자 턴으로.
+        setGameMessage(
+          `AI가 '${aiStartLetter}'(으)로 시작하는 단어를 찾지 못했습니다. 다시 첫 단어를 입력해주세요.`
+        );
+        setCurrentWord(userWord); // 사용자가 입력한 첫 단어 유지
+        setHistory([userWord]); // history도 사용자가 입력한 첫 단어만 유지
+      }
+      return; // 첫 단어 처리 후 함수 종료
+    }
+
+    // 게임 진행 중: 사용자가 다음 단어를 입력하는 경우
     if (currentWord.charAt(currentWord.length - 1) !== userWord.charAt(0)) {
-      toast.error(`'${currentWord.charAt(currentWord.length - 1)}'(으)로 시작하는 단어를 입력해야 합니다.`);
+      toast.error(
+        `'${currentWord.charAt(currentWord.length - 1)}'(으)로 시작하는 단어를 입력해야 합니다.`
+      );
       return;
     }
 
@@ -139,14 +229,14 @@ export default function Home() {
       return;
     }
     if (userWord.length <= 1) {
-        toast.error("두 글자 이상의 단어를 입력해주세요.");
-        return;
+      toast.error("두 글자 이상의 단어를 입력해주세요.");
+      return;
     }
 
     const newHistory = [...history, userWord];
     setHistory(newHistory);
     setCurrentWord(userWord);
-    setInputValue('');
+    setInputValue("");
     setGameMessage("AI가 다음 단어를 생각 중입니다...");
 
     const aiStartLetter = userWord.charAt(userWord.length - 1);
@@ -155,32 +245,46 @@ export default function Home() {
 
     if (aiWord) {
       if (newHistory.includes(aiWord)) {
-        toast.error(`AI가 이미 사용된 단어(\'${aiWord}\')를 제시했습니다. 다시 시도합니다.`);
+        toast.error(
+          `AI가 이미 사용된 단어('${aiWord}')를 제시했습니다. 다시 시도합니다.`
+        );
         setGameMessage("AI가 중복된 단어를 제시했습니다. 당신의 차례입니다.");
         return;
       }
       if (aiWord.length <= 1) {
-        toast.error(`AI가 한 글자 단어(\'${aiWord}\')를 제시했습니다. 다시 시도합니다.`);
-        setGameMessage("AI가 너무 짧은 단어를 제시했습니다. 당신의 차례입니다.");
+        toast.error(
+          `AI가 한 글자 단어('${aiWord}')를 제시했습니다. 다시 시도합니다.`
+        );
+        setGameMessage(
+          "AI가 너무 짧은 단어를 제시했습니다. 당신의 차례입니다."
+        );
         return;
       }
       if (aiStartLetter !== aiWord.charAt(0)) {
-        toast.error(`AI가 규칙에 맞지 않는 단어(\'${aiWord}\')를 제시했습니다. (시작 글자 불일치)`);
-        setGameMessage("AI가 규칙에 어긋난 단어를 제시했습니다. 당신의 차례입니다.");
+        toast.error(
+          `AI가 규칙에 맞지 않는 단어('${aiWord}')를 제시했습니다. (시작 글자 불일치)`
+        );
+        setGameMessage(
+          "AI가 규칙에 어긋난 단어를 제시했습니다. 당신의 차례입니다."
+        );
         return;
-      }      
+      }
 
       setHistory([...newHistory, aiWord]);
       setCurrentWord(aiWord);
       const nextUserStartLetter = aiWord.charAt(aiWord.length - 1);
-      setGameMessage(`'${nextUserStartLetter}'(으)로 시작하는 단어를 입력하세요.`);
+      setGameMessage(
+        `'${nextUserStartLetter}'(으)로 시작하는 단어를 입력하세요.`
+      );
     } else {
-      setGameMessage("AI가 단어를 찾지 못했습니다. 당신의 승리! 다시 시작하려면 새 단어를 입력하세요.");
+      setGameMessage(
+        "AI가 단어를 찾지 못했습니다. 당신의 승리! 다시 시작하려면 새 단어를 입력하세요."
+      );
     }
   };
 
   const handleInputKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       handleSubmit();
     }
   };
@@ -189,8 +293,11 @@ export default function Home() {
   useEffect(() => {
     if (API_KEY && genAI && model) {
       setIsApiReady(true);
-    } else if (!API_KEY && typeof window !== 'undefined') {
-      toast.error("Gemini API 키가 없습니다. .env.local 파일을 설정해주세요! AI 기능이 제한됩니다.", { duration: 10000 });
+    } else if (!API_KEY && typeof window !== "undefined") {
+      toast.error(
+        "Gemini API 키가 없습니다. .env.local 파일을 설정해주세요! AI 기능이 제한됩니다.",
+        { duration: 10000 }
+      );
     }
   }, []);
 
@@ -199,27 +306,43 @@ export default function Home() {
       <Toaster richColors position="top-center" />
       <main className="w-full max-w-md space-y-6">
         <header className="text-center">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white">AI 끝말잇기 (Gemini)</h1>
-          <p className="text-gray-600 dark:text-gray-400">AI와 함께하는 신나는 끝말잇기 한판!</p>
-          {!isApiReady && API_KEY && <p className="text-yellow-500 text-xs">AI 모델 초기화 중...</p>}
-          {!API_KEY && <p className="text-red-500 text-xs">API 키가 없어 AI 기능이 비활성화되었습니다.</p>}
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
+            AI 끝말잇기 (Gemini)
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400">
+            AI와 함께하는 신나는 끝말잇기 한판!
+          </p>
+          {!isApiReady && API_KEY && (
+            <p className="text-yellow-500 text-xs">AI 모델 초기화 중...</p>
+          )}
+          {!API_KEY && (
+            <p className="text-red-500 text-xs">
+              API 키가 없어 AI 기능이 비활성화되었습니다.
+            </p>
+          )}
         </header>
 
         <Card className="w-full">
           <CardHeader>
             <CardTitle>게임 진행</CardTitle>
-            <CardDescription>{isAiThinking ? "AI가 생각 중..." : gameMessage}</CardDescription>
+            <CardDescription>
+              {isAiThinking ? "AI가 생각 중..." : gameMessage}
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col space-y-2">
-              <p className="text-sm text-gray-500 dark:text-gray-400">현재 단어:</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                현재 단어:
+              </p>
               <p className="text-2xl font-semibold text-center text-blue-600 dark:text-blue-400 p-3 border rounded-md bg-blue-50 dark:bg-blue-900/30">
                 {currentWord}
               </p>
             </div>
           </CardContent>
           <CardFooter className="flex flex-col items-start space-y-2">
-             <p className="text-xs text-gray-500 dark:text-gray-400">사용된 단어: {history.join(', ')}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              사용된 단어: {history.join(", ")}
+            </p>
           </CardFooter>
         </Card>
 
@@ -242,8 +365,8 @@ export default function Home() {
         <Alert>
           <AlertTitle>게임 규칙!</AlertTitle>
           <AlertDescription>
-            - 제시된 단어의 마지막 글자로 시작하는 단어를 입력해주세요.<br />
-            - 한 글자 단어, 이미 사용된 단어는 사용할 수 없어요.
+            - 제시된 단어의 마지막 글자로 시작하는 단어를 입력해주세요.
+            <br />- 한 글자 단어, 이미 사용된 단어는 사용할 수 없어요.
           </AlertDescription>
         </Alert>
 
