@@ -1,6 +1,6 @@
 # Task ID: 2
 # Title: Implement Basic Game UI
-# Status: pending
+# Status: done
 # Dependencies: 1
 # Priority: medium
 # Description: Implement the core user interface components required for the game, including the word input field, AI response display area, current word status, game state indicator, and game start/restart buttons.

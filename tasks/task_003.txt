@@ -1,6 +1,6 @@
 # Task ID: 3
 # Title: Integrate Gemini API with Function Calling
-# Status: in-progress
+# Status: done
 # Dependencies: 1
 # Priority: high
 # Description: Integrate with the Google Gemini-2.0-Flash API, specifically implementing the Function Calling mechanism to request the next word from the AI based on the game state.

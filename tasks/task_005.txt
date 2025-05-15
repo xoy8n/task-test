@@ -1,6 +1,6 @@
 # Task ID: 5
 # Title: Implement Basic Word Validation (Used Words)
-# Status: pending
+# Status: done
 # Dependencies: 4
 # Priority: medium
 # Description: Implement the basic word validation logic as specified in the MVP, focusing on preventing the reuse of words already played in the current game session.

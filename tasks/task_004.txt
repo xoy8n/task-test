@@ -1,6 +1,6 @@
 # Task ID: 4
 # Title: Implement Core Game Flow and State Management
-# Status: pending
+# Status: done
 # Dependencies: 2, 3
 # Priority: high
 # Description: Implement the core game logic including managing turns between the user and AI, tracking the current game state, and handling the start and end conditions of the game.
